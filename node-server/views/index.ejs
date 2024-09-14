@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Images with Options</title>
+</head>
+<body>
+  <h1>Check Correct Image Name</h1>
+
+  <% images.forEach(image => { %>
+    <div>
+      <!-- <h2><%= image.name %></h2> -->
+      <img src="<%= image.url %>" alt="<%= image.name %>" />
+
+      <ul>
+        <% image.options.forEach(option => { %>
+          <li>F1: <%= option.F1 ? 'Checked' : 'Unchecked' %></li>
+          <li>F2: <%= option.F2 ? 'Checked' : 'Unchecked' %></li>
+          <li>F3: <%= option.F3 ? 'Checked' : 'Unchecked' %></li>
+          <li>F4: <%= option.F4 ? 'Checked' : 'Unchecked' %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% }) %>
+
+</body>
+</html>
