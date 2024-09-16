@@ -3,7 +3,7 @@ const router = express.Router();
 const imagesController = require("../controllers/imageController")
 
 
-router.get("/", imagesController.getImages);
+router.get("/image-listing", imagesController.getImages);
 router.post("/update-option", imagesController.updateImageOption);
 
-module.exports = router;
+module.exports = router; 

@@ -1,113 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Images</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 0px solid black;
-      padding: 20px;
-      text-align: center;
-    }
-    img {
-      width: 200px;
-      height: auto;
-    }
-    input[type="checkbox"] {
-      transform: scale(1.5);
-    }
-    .pagination {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .pagination a {
-      margin: 0 5px;
-      padding: 8px 16px;
-      background-color: #4a90e2;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    .pagination a:hover {
-      background-color: #357ab7;
-    }
-    .pagination a.disabled {
-      pointer-events: none;
-      background-color: lightgray;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
 
-  <script>
-    function updateOption(optionId, field, value) {
-      fetch('/update-option', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ optionId, field, value }),
-      })
-      .then(response => response.json())
-      .then(data => {
-      })
-      .catch(error => {
-        console.error('Error updating option:', error);
-        alert('Failed to update option.');
-      });
-    }
-  </script>
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            background-color: rgba(247, 244, 244, 0.959);
+        }
 
+        .login-text {
+            flex-grow: 1;
+            font-size: 25px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
 
+        .menu {
+            flex-grow: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu a {
+            padding: 20px;
+            text-decoration: none;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .logout {
+            flex-grow: 3;
+            display: flex;
+            justify-content: end;
+        }
+
+        .logout a {
+            padding: 20px;
+            text-decoration: none;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Dashboard Boxes */
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            margin: 100px 10px;
+        }
+
+        .dashboard .box {
+            flex: 1;
+            margin: 10px;
+            padding: 30px;
+            background-color: #f4f4f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .box h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .box p {
+            font-size: 30px;
+            color: #007bff;
+            margin: 0;
+        }
+
+    </style>
 </head>
 <body>
-  <h1>Images Data</h1>
+    <div class="header">
+        <div class="login-text">
+            Image Lister Admin
+        </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>F1</th>
-        <th>F2</th>
-        <th>F3</th>
-        <th>F4</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% images.forEach(image => { %>
-        <% image.options.forEach(option => { %>
-          <tr>
-            <td><img src="<%= image.url %>" alt="<%= image.name %>"></td>
-            <td><%= image.name %></td>
-            <td><input type="checkbox" <%= option.F1 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F1', this.checked)"></td>
-            <td><input type="checkbox" <%= option.F2 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F2', this.checked)"></td>
-            <td><input type="checkbox" <%= option.F3 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F3', this.checked)"></td>
-            <td><input type="checkbox" <%= option.F4 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F4', this.checked)"></td>
-          </tr>
-        <% }) %>
-      <% }) %>
-    </tbody>
-  </table>
+        <div class="menu">
+            <a href="/user">User</a>
+            <a href="/user-listing">User Listing</a>
+            <a href="/batch">Batch</a>
+            <a href="/batch-listing">Batch Listing</a>
+            <a href="/image">Image</a>
+            <a href="/image-listing">Image Listing</a>
+        </div>
 
-  <!-- Pagination -->
-  <div class="pagination">
-    <% if (currentPage > 1) { %>
-      <a href="?page=<%= currentPage - 1 %>">&laquo; Previous</a>
-    <% } else { %>
-      <a class="disabled">&laquo; Previous</a>
-    <% } %>
+        <div class="logout">
+            <a href="/login">Logout</a>
+        </div>
+    </div>
 
-    <!-- <% for (let i = 1; i <= totalPages; i++) { %>
-      <a href="?page=<%= i %>" class="<%= currentPage === i ? 'disabled' : '' %>"><%= i %></a>
-    <% } %> -->
-
-    <% if (currentPage < totalPages) { %>
-      <a href="?page=<%= currentPage + 1 %>">Next &raquo;</a>
-    <% } else { %>
-      <a class="disabled">Next &raquo;</a>
-    <% } %>
-  </div>
+    <!-- Dashboard Boxes -->
+    <div class="dashboard">
+        <div class="box">
+            <h3>Total Users</h3>
+            <p>120</p>
+        </div>
+        <div class="box">
+            <h3>Total Images</h3>
+            <p>300</p>
+        </div>
+        <div class="box">
+            <h3>Total Batches</h3>
+            <p>50</p>
+        </div>
+        <div class="box">
+            <h3>Total Admins</h3>
+            <p>5</p>
+        </div>
+    </div>
 </body>
 </html>

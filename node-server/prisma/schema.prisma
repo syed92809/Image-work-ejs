@@ -11,15 +11,62 @@ model images {
   id      Int    @id @default(autoincrement())
   name    String
   url     String
+  
+  batch   Batch   @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  batchId Int
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
   options option[] 
 }
 
 model option {
   id      Int    @id @default(autoincrement())
-  image   images @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  image   images  @relation(fields: [imageId], references: [id], onDelete: Cascade)
   imageId Int
+  
   F1      Boolean @default(false)
   F2      Boolean @default(false)
   F3      Boolean @default(false)
   F4      Boolean @default(false)
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model users {
+  id          Int              @id @default(autoincrement())
+  username    String
+  password    String
+  role        Int
+  block       Boolean
+  created     DateTime         @default(now())
+  updated     DateTime         @updatedAt
+
+  usersBatches UsersBatches[]
+}
+
+model Batch {
+  id        Int      @id @default(autoincrement())
+  batchname String
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
+
+  images    images[]
+  usersBatches UsersBatches[]
+}
+
+model UsersBatches {
+  id      Int    @id @default(autoincrement())
+
+  batch   Batch  @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  batchId Int
+
+  user    users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
 }

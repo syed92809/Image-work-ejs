@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .upload-file {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Create User</h1>
+
+    <div class="form-container">
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="imageName">User Name</label>
+                <input type="text" id="userName" name="userName" placeholder="Enter Batch Name" required>
+            </div>
+            <div class="form-group">
+                <label for="imageName">User Password</label>
+                <input type="text" id="userPass" name="userPass" placeholder="Enter Batch Name" required>
+            </div>
+            <div class="form-group">
+                <label for="imageName">User Batch</label>
+                <input type="text" id="userBatch" name="userBatch" placeholder="Enter Batch Name" required>
+            </div>
+            <div class="form-group">
+                <label for="imageName">User Role</label>
+                <input type="text" id="role" name="role" placeholder="Enter Batch Name" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

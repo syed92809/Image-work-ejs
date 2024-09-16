@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Batch Listing</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 0px solid black;
+      padding: 20px;
+      text-align: center;
+    }
+    img {
+      width: 200px;
+      height: auto;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.5);
+    }
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .pagination a {
+      margin: 0 5px;
+      padding: 8px 16px;
+      background-color: #4a90e2;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .pagination a:hover {
+      background-color: #357ab7;
+    }
+    .pagination a.disabled {
+      pointer-events: none;
+      background-color: lightgray;
+    }
+  </style>
+
+  <script>
+    function updateOption(optionId, field, value) {
+      fetch('/update-option', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ optionId, field, value }),
+      })
+      .then(response => response.json())
+      .then(data => {
+      })
+      .catch(error => {
+        console.error('Error updating option:', error);
+        alert('Failed to update option.');
+      });
+    }
+  </script>
+
+
+</head>
+<body>
+  <h1>Batch Listing</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Batch Id</th>
+        <th>Batch Name</th>
+        <th>User</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+    </tbody>
+  </table>
+
+
+</body>
+</html>

@@ -14,9 +14,9 @@ exports.getImages = async (req, res) => {
       include: {
         options: true
       }
-    });
+    }); 
 
-    res.render('index', {
+    res.render('imagelisting', {
       images: images,
       currentPage: page,
       totalPages: totalPages
@@ -26,7 +26,6 @@ exports.getImages = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
-
 
 exports.updateImageOption = async (req, res) => {
     const { optionId, field, value } = req.body;

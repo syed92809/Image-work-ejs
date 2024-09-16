@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Images</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 0px solid black;
+      padding: 20px;
+      text-align: center;
+    }
+    img {
+      width: 200px;
+      height: auto;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.5);
+    }
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .pagination a {
+      margin: 0 5px;
+      padding: 8px 16px;
+      background-color: #4a90e2;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .pagination a:hover {
+      background-color: #357ab7;
+    }
+    .pagination a.disabled {
+      pointer-events: none;
+      background-color: lightgray;
+    }
+  </style>
+
+  <script>
+    function updateOption(optionId, field, value) {
+      fetch('/update-option', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ optionId, field, value }),
+      })
+      .then(response => response.json())
+      .then(data => {
+      })
+      .catch(error => {
+        console.error('Error updating option:', error);
+        alert('Failed to update option.');
+      });
+    }
+  </script>
+
+
+</head>
+<body>
+  <h1>Images Data</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>F1</th>
+        <th>F2</th>
+        <th>F3</th>
+        <th>F4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% images.forEach(image => { %>
+        <% image.options.forEach(option => { %>
+          <tr>
+            <td><img src="<%= image.url %>" alt="<%= image.name %>"></td>
+            <td><%= image.name %></td>
+            <td><input type="checkbox" <%= option.F1 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F1', this.checked)"></td>
+            <td><input type="checkbox" <%= option.F2 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F2', this.checked)"></td>
+            <td><input type="checkbox" <%= option.F3 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F3', this.checked)"></td>
+            <td><input type="checkbox" <%= option.F4 ? 'checked' : '' %> onclick="updateOption('<%= option.id %>', 'F4', this.checked)"></td>
+          </tr>
+        <% }) %>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage - 1 %>">&laquo; Previous</a>
+    <% } else { %>
+      <a class="disabled">&laquo; Previous</a>
+    <% } %>
+
+    <!-- <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="?page=<%= i %>" class="<%= currentPage === i ? 'disabled' : '' %>"><%= i %></a>
+    <% } %> -->
+
+    <% if (currentPage < totalPages) { %>
+      <a href="?page=<%= currentPage + 1 %>">Next &raquo;</a>
+    <% } else { %>
+      <a class="disabled">Next &raquo;</a>
+    <% } %>
+  </div>
+</body>
+</html>
