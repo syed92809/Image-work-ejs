@@ -216,12 +216,11 @@ exports.createBatch = async (req, res) => {
     }
 };
 
-
+ 
 exports.User = async (req, res) => {
     if (req.method === 'POST') {
-        const { userName, userPass, role } = req.body;
+        const { userName, userPass, role, batchId } = req.body;
         try {
-            // Check if the username already exists in the database
             const existingUser = await prisma.users.findFirst({
                 where: {
                     username: userName
@@ -229,11 +228,9 @@ exports.User = async (req, res) => {
             });
 
             if (existingUser) {
-                // If the username already exists, return an error message
                 return res.status(400).send("Username already exists. Please choose a different one.");
             }
 
-            // Create a new user if the username does not exist
             const newUser = await prisma.users.create({
                 data: {
                     username: userName,
@@ -243,13 +240,41 @@ exports.User = async (req, res) => {
                 }
             });
 
-            res.render('userlisting', { message: "User created successfully!" });
+            // Assign batch to the user
+            await prisma.usersBatches.create({
+                data: {
+                    userId: newUser.id,
+                    batchId: parseInt(batchId)
+                }
+            });
+
+            // Fetch the list of users to pass to the user listing page
+            const users = await prisma.users.findMany({
+                select: {
+                    id: true,
+                    username: true,
+                    created: true,
+                    block: true
+                }
+            });
+            res.redirect('/user-listing')
         } catch (error) {
             console.error(error);
             res.status(500).send("Error creating user");
         }
     } else {
-        res.render('user');
+        try {
+            const batches = await prisma.batch.findMany({
+                select: {
+                    id: true,
+                    batchname: true,
+                },
+            });
+            res.render('user', { batches });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Error fetching batches");
+        }
     }
 };
 

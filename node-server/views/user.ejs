@@ -71,6 +71,14 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="batch">Assign Batch</label>
+                <select id="batch" name="batchId" required>
+                    <% batches.forEach(function(batch) { %>
+                        <option value="<%= batch.id %>"><%= batch.batchname %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create">
             </div>
         </form>
