@@ -38,6 +38,14 @@
             border-radius: 5px;
         }
 
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
         input[type="submit"] {
             background-color: #007bff;
             color: white;
@@ -55,34 +63,91 @@
             background-color: #f4f4f4;
             border: 1px solid #ccc;
             border-radius: 5px;
+            cursor: pointer;
         }
 
+        .or {
+            margin-top: 30px;
+            padding-left: 20px;
+        }
+
+        #fileName {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Upload Image</h1>
+    <h4><a href="/dashboard">Go to Dashboard</a></h4>
+    <h1 style="text-align: center;">Upload Image</h1>
 
     <div class="form-container">
-        <form action="" method="POST">
+        <!-- Form for Single Image Upload -->
+        <form action="/upload-image" method="POST">
+            <div class="form-group">
+                <label for="batchId">Batch</label>
+                <select id="batchId" name="batchId" required>
+                    <option value="">Select a Batch</option>
+                    <% batches.forEach(function(batch) { %>
+                        <option value="<%= batch.id %>"><%= batch.batchname %></option>
+                    <% }); %>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="imageName">Image Name</label>
-                <input type="text" id="imageName" name="imageName" placeholder="Enter Image Name" required>
+                <input type="text" id="imageName" name="imageName" placeholder="Enter Image Name">
             </div>
+
             <div class="form-group">
                 <label for="imageUrl">Image URL</label>
-                <input type="url" id="imageUrl" name="imageUrl" placeholder="Enter Image URL" required>
+                <input type="url" id="imageUrl" name="imageUrl" placeholder="Enter Image URL">
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit Single Image">
+            </div>
+        </form>
+
+        <!-- Form for Bulk Image Upload -->
+        <form action="/upload-image" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="batchIdBulk">Batch</label>
+                <select id="batchIdBulk" name="batchId" required>
+                    <option value="">Select a Batch</option>
+                    <% batches.forEach(function(batch) { %>
+                        <option value="<%= batch.id %>"><%= batch.batchname %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label class="upload-file">
-                    <input type="file" id="uploadFile" name="uploadFile" style="display: none;">
+                    <input type="file" id="uploadFile" name="uploadFile" accept=".csv, .xlsx" style="display: none;" required>
                     Upload Bulk Images
                 </label>
-                <label for="note" style="color: red;">*only .csv files are allowed in bulk</label>
+                <label class="error">*only .csv or .xlsx files are allowed in bulk</label>
+                <p id="fileName"></p>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit Bulk Images">
             </div>
         </form>
     </div>
 
+    <script>
+        document.getElementById('uploadFile').addEventListener('change', function() {
+            const fileName = this.files[0]?.name || "No file selected";
+            document.getElementById('fileName').innerText = `Selected file: ${fileName}`;
+        });
+    </script>
+
 </body>
 </html>
+

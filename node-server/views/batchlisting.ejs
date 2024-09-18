@@ -9,15 +9,12 @@
     }
     th, td {
       border: 0px solid black;
-      padding: 20px;
+      padding: 10px;
       text-align: center;
     }
     img {
-      width: 200px;
+      width: 100px;
       height: auto;
-    }
-    input[type="checkbox"] {
-      transform: scale(1.5);
     }
     .pagination {
       margin-top: 20px;
@@ -38,46 +35,41 @@
       pointer-events: none;
       background-color: lightgray;
     }
-  </style>
-
-  <script>
-    function updateOption(optionId, field, value) {
-      fetch('/update-option', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ optionId, field, value }),
-      })
-      .then(response => response.json())
-      .then(data => {
-      })
-      .catch(error => {
-        console.error('Error updating option:', error);
-        alert('Failed to update option.');
-      });
+    h1{
+      text-align: center;
     }
-  </script>
 
-
+  </style>
 </head>
 <body>
+  <h4><a href="/dashboard">Go to Dashboard</a></h4>
   <h1>Batch Listing</h1>
 
   <table>
     <thead>
       <tr>
-        <th>Batch Id</th>
+        <th>Batch ID</th>
         <th>Batch Name</th>
-        <th>User</th>
-        <th>Image</th>
+        <th>Users</th>
+        
       </tr>
     </thead>
     <tbody>
-     
+      <% batches.forEach(function(batch) { %>
+        <tr>
+          <td><%= batch.id %></td>
+          <td><%= batch.batchname %></td>
+          <td>
+            <ul>
+              <% batch.usersBatches.forEach(function(userBatch) { %>
+                <li><%= userBatch.user.username %></li>
+              <% }) %>
+            </ul>
+          </td>
+         
+        </tr>
+      <% }) %>
     </tbody>
   </table>
-
-
 </body>
 </html>

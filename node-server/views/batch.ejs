@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batch</title>
+    <title>Create Batch</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
             font-size: 18px;
         }
 
-        input[type="text"], input[type="url"] {
+        input[type="text"], select {
             width: 100%;
             padding: 10px;
             font-size: 16px;
@@ -48,33 +48,30 @@
             border-radius: 5px;
         }
 
-        .upload-file {
-            display: inline-block;
-            margin-left: 10px;
-            padding: 10px;
-            background-color: #f4f4f4;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
     </style>
 </head>
 <body>
-
-    <h1>Create Batch</h1>
+    <h4><a href="/dashboard">Go to Dashboard</a></h4>
+    <h1 style="text-align: center;">Create Batch</h1>
 
     <div class="form-container">
-        <form action="" method="POST">
+        <form action="/batch" method="POST">
             <div class="form-group">
-                <label for="imageName">Batch Name</label>
+                <label for="batchName">Batch Name</label>
                 <input type="text" id="batchName" name="batchName" placeholder="Enter Batch Name" required>
             </div>
+
             <div class="form-group">
-                <label for="imageUrl">Select User</label>
-                <input type="url" id="users" name="users" placeholder="Select Users" required>
+                <label for="users">Select Users</label>
+                <select id="users" name="users[]" multiple required>
+                    <% users.forEach(function(user) { %>
+                        <option value="<%= user.id %>"><%= user.username %></option>
+                    <% }) %>
+                </select>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Create Batch">
             </div>
         </form>
     </div>

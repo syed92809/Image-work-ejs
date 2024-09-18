@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     <style>
         body, html {
             height: 100%;
@@ -41,7 +40,7 @@
             border-radius: 4px;
         }
 
-        input[type="button"] {
+        input[type="submit"] {
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -52,7 +51,7 @@
             text-align: center;
         }
 
-        input[type="button"]:hover {
+        input[type="submit"]:hover {
             background-color: #45a049;
         }
     </style>
@@ -62,14 +61,14 @@
         <h1>Login to Your Account</h1>
         <div>
             <label for="username">Enter Username</label>
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" required>
         </div>
         <div>
             <label for="password">Enter Password</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" required>
         </div>
         <div>
-            <input type="button" value="Login">
+            <input type="submit" value="Login">
         </div>
     </form>
 </body>

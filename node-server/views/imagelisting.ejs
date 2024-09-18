@@ -62,8 +62,13 @@
 
 </head>
 <body>
-  <h1>Images Data</h1>
+  <% if(role == 1) {%>
+    <h4><a href="/dashboard">Go to Dashboard</a></h4>
+  <% }else{ %>
+    <h4><a href="/login">Logout</a></h4>
+  <% } %>
 
+  <h1 style="text-align: center;">Images Data</h1>
   <table>
     <thead>
       <tr>

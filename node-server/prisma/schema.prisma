@@ -38,7 +38,7 @@ model option {
 
 model users {
   id          Int              @id @default(autoincrement())
-  username    String
+  username    String @unique
   password    String
   role        Int
   block       Boolean
@@ -50,7 +50,7 @@ model users {
 
 model Batch {
   id        Int      @id @default(autoincrement())
-  batchname String
+  batchname String   @unique
   created   DateTime @default(now())
   updated   DateTime @updatedAt
 
