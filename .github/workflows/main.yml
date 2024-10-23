@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: npm install
+      run: cd node-server && npm install
 
     - name: Deploy to AWS EC2
       uses: appleboy/scp-action@master
@@ -20,8 +20,8 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "./node-server/*"  # This now correctly points to the current directory
-        target: "/var/www/Image-work-ejs/node-server"
+        source: "./node-server/*" 
+        target: "/var/www/Image-work-ejs/node-server" 
 
     - name: Restart PM2 application
       uses: appleboy/ssh-action@master
@@ -31,4 +31,4 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /var/www/Image-work-ejs/node-server
-          pm2 reload all  # This command restarts your application
+          pm2 reload all  # Restart your application
