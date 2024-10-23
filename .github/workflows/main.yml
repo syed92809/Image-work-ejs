@@ -7,10 +7,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
-
+    
     - name: Install dependencies
       run: cd node-server && npm install
 
@@ -20,8 +20,9 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "./node-server/*" 
-        target: "/var/www/Image-work-ejs/node-server" 
+        source: "./node-server/*"  # Update source to point inside node-server
+        target: "/var/www/Image-work-ejs/node-server"  # Adjust target to match your project directory
+        port: 22  # Specify the port for SSH, default is 22
 
     - name: Restart PM2 application
       uses: appleboy/ssh-action@master
