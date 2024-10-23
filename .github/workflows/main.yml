@@ -23,7 +23,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: "./node-server/*"
         target: "/var/www/Image-work-ejs/node-server"
-        port: 22  # Ensure SSH port is correctly specified
+        port: 5000  # Ensure SSH port is correctly specified
 
     - name: Restart PM2 application
       uses: appleboy/ssh-action@master
