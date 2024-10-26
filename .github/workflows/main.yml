@@ -2,7 +2,7 @@ name: Node.js CI/CD on Amazon Linux
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -10,9 +10,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Install dependencies
-      run: cd node-server && npm install
+      run: |
+        cd node-server
+        npm install
 
     - name: Deploy to AWS EC2
       uses: appleboy/scp-action@master
@@ -20,9 +22,8 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "./node-server/*"  # Update source to point inside node-server
-        target: "/var/www/image-work-ejs/node-server"  # Adjust target to match your project directory
-        port: 22  # Specify the port for SSH, default is 22
+        source: "./node-server/*"  
+        target: "/home/ubuntu/actions-runner/Image-work-ejs/node-server"  
 
     - name: Restart PM2 application
       uses: appleboy/ssh-action@master
@@ -31,5 +32,5 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /var/www/image-work-ejs/node-server
-          pm2 reload all  # Restart your application
+          cd /home/ubuntu/actions-runner/Image-work-ejs/node-server
+          pm2 reload all
