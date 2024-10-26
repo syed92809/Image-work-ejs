@@ -25,7 +25,7 @@ jobs:
         source: "./node-server/*"  
         target: "/home/ubuntu/actions-runner/Image-work-ejs/node-server"  
 
-    - name: Restart PM2 application
+    - name: Start Application
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.REMOTE_HOST }}
@@ -33,4 +33,4 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /home/ubuntu/actions-runner/Image-work-ejs/node-server
-          pm2 reload all
+          nohup npm run dev &  
