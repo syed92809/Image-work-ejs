@@ -3,7 +3,7 @@ const csvParser = require('csv-parser');
 const XLSX = require('xlsx');
 const fs = require('fs');
 const path = require('path');
-
+ 
 exports.Image = async (req, res) => {
     try {
         const batches = await prisma.batch.findMany({
